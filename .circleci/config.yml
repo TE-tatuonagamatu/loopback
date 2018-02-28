@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    machine:
+      enabled: true
+      image: circleci/classic:201711-01
+    steps:
+      - checkout
+      - run:
+          name: Mount image
+          command: sudo sh -x mount.sh
+      - run:
+          name: Print the Current Time
+          command: date
