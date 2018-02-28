@@ -4,8 +4,10 @@ if [ ! -d /mnt ]; then
 fi
 LOOPDEV=$(losetup -f)
 losetup "${LOOPDEV}" Ubuntu_armhf_nopkg.img
-mount -t ext4 "${LOOPDEV}" /mnt
+mount "${LOOPDEV}" /mnt
 df
 ls -Rl /mnt
 umount /mnt
 losetup -d "${LOOPDEV}"
+dmesg | tail
+od -X Ubuntu_armhf_nopkg.img | head
