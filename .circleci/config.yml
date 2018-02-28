@@ -6,9 +6,6 @@ jobs:
       image: circleci/classic:201711-01
     steps:
       - run:
-          name: install curl
-          command: sudo apt-get install -y curl
-      - run:
           name: install git-lfs
           command: |
             curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
@@ -35,6 +32,8 @@ jobs:
       - run:
           name: execute build job
           command: |
+            BRANCH_NAME=$(date "+%Y%m%d%H%M")
+            CI_REMOTE_REPOSITORY="git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
             echo "create new branch ${BRANCH_NAME}"
             ls -a
             git checkout -b "${BRANCH_NAME}"
