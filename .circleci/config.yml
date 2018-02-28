@@ -23,19 +23,13 @@ jobs:
             for _k in $(ls ${HOME}/.ssh/id_*); do
               ssh-add ${_k} || true
             done
-#      - run:
-#          name: build container
-#          command: docker build --build-arg ssh_key="$(cat ~/.ssh/id_rsa)" -t nagamatu/loopback .
-#      - run:
-#          name: run container
-#          command: docker run --env CIRCLE_PROJECT_USERNAME=${CIRCLE_PROJECT_USERNAME} --env CI_PROJECT_REPONAME=${CI_PROJECT_REPONAME} --privileged -t nagamatu/loopback
       - run:
           name: execute build job
           command: |
-            BRANCH_NAME=$(date "+%Y%m%d%H%M")
+            BRANCH_NAME=$(date "+%Y%m%d%H%M%S")
             CI_REMOTE_REPOSITORY="git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
             echo "create new branch ${BRANCH_NAME}"
-            ls -a
+            ls -la
             git checkout -b "${BRANCH_NAME}"
             touch "${BRANCH_NAME}"
             git add .
