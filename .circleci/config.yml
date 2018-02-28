@@ -5,6 +5,15 @@ jobs:
       enabled: true
       image: circleci/classic:201711-01
     steps:
+      - run:
+          name: install curl
+          command: apt-get install -y curl
+      - run:
+          name: install git-lfs
+          command: |
+            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
+            apt-get install -y git-lfs
+            git lfs install
       - checkout
       - run:
           name: check ssh
@@ -17,12 +26,24 @@ jobs:
             for _k in $(ls ${HOME}/.ssh/id_*); do
               ssh-add ${_k} || true
             done
+#      - run:
+#          name: build container
+#          command: docker build --build-arg ssh_key="$(cat ~/.ssh/id_rsa)" -t nagamatu/loopback .
+#      - run:
+#          name: run container
+#          command: docker run --env CIRCLE_PROJECT_USERNAME=${CIRCLE_PROJECT_USERNAME} --env CI_PROJECT_REPONAME=${CI_PROJECT_REPONAME} --privileged -t nagamatu/loopback
       - run:
-          name: build container
-          command: docker build --build-arg ssh_key="$(cat ~/.ssh/id_rsa)" -t nagamatu/loopback .
-      - run:
-          name: run container
-          command: docker run --env CIRCLE_PROJECT_USERNAME=${CIRCLE_PROJECT_USERNAME} --env CI_PROJECT_REPONAME=${CI_PROJECT_REPONAME} --privileged -t nagamatu/loopback
+          name: execute build job
+          command: |
+            echo "create new branch ${BRANCH_NAME}"
+            cd loopback
+            git checkout -b "${BRANCH_NAME}"
+            touch "${BRANCH_NAME}"
+            git add .
+            git status
+            echo "push to server"
+            git commit -m "[auto] branch (${BRANCH_NAME})"
+            git push "${CI_REMOTE_REPOSITORY}" "${BRANCH_NAME}"
       - run:
           name: Print the Current Time
           command: date
