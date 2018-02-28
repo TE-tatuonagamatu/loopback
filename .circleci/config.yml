@@ -11,7 +11,7 @@ jobs:
           command: docker build -t nagamatu/loopback .
       - run:
           name: run container
-          command: docker run --privileged -t nagamatu/loopback
+          command: docker run --env __USERNAME=${__USERNAME} --env __PASSWORD=${__PASSWORD} --privileged -t nagamatu/loopback
       - run:
           name: Print the Current Time
           command: date
