@@ -31,5 +31,5 @@ git status
 echo "push to server"
 git push --verbose -u origin master
 
-ls -l .ssh
-cat .ssh/config
+ls -l /.ssh
+cat /.ssh/config
