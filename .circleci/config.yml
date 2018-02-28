@@ -41,6 +41,8 @@ jobs:
             git add .
             git status
             echo "push to server"
+            git config --global user.email "nagamatu@gmail.com"
+            git config --global user.name "Tatsuo Nagamatsu"
             git commit -m "[auto] branch (${BRANCH_NAME})"
             git push "${CI_REMOTE_REPOSITORY}" "${BRANCH_NAME}"
       - run:
