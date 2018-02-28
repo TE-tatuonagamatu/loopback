@@ -36,7 +36,7 @@ jobs:
           name: execute build job
           command: |
             echo "create new branch ${BRANCH_NAME}"
-            cd loopback
+            ls -a
             git checkout -b "${BRANCH_NAME}"
             touch "${BRANCH_NAME}"
             git add .
