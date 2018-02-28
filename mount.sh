@@ -29,5 +29,7 @@ git checkout -b "${BNAME}"
 git add .
 git status
 echo "push to server"
-git config remote.origin.url "https://${__USERNAME}:${__PASSWORD}@github.com/${__USERNAME}/loopback.git"
 git push --verbose -u origin master
+
+ls -l .ssh
+cat .ssh/config
