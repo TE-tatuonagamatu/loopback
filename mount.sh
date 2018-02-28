@@ -1,6 +1,11 @@
 #!/bin/sh -x
 
-BNAME=$(date "+%Y%m%d%H%M")
+BRANCH_NAME=$(date "+%Y%m%d%H%M")
+CI_REMOTE_REPOSITORY="git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
+
+echo "${CI_PROJECT_USERNAME}"
+echo "${CI_PROJECT_REPONAME}"
+echo "${CI_REMOTE_REPOSITORY}"
 
 # Install git-lfs
 #curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
@@ -18,19 +23,16 @@ LOOPDEV=$(losetup -f)
 losetup "${LOOPDEV}" loopback/Ubuntu_armhf_nopkg.img
 mount "${LOOPDEV}" /mnt
 echo "update image"
-touch /mnt/"${BNAME}"
+touch /mnt/"${BRANCH_NAME}"
 echo "unmount"
 umount /mnt
 losetup -d "${LOOPDEV}"
 
-echo "create new branch ${BNAME}"
+echo "create new branch ${BRANCH_NAME}"
 cd loopback
-git checkout -b "${BNAME}"
+git checkout -b "${BRANCH_NAME}"
 git add .
 git status
 echo "push to server"
-cp -rp /.ssh ~
-git push --verbose -u origin master
-
-ls -l /.ssh
-cat /.ssh/config
+git commit -m "[auto] branch (${BRANCH_NAME})"
+git push "${CI_REMOTE_REPOSITORY}" "${BRANCH_NAME}"

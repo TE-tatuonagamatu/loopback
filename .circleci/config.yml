@@ -7,17 +7,17 @@ jobs:
     steps:
       - checkout
       - run:
-          name: check home
-          command: echo ~
+          name: check ssh
+          command: ls ~/.ssh
       - run:
-          name: listing home
-          command: ls -a ~
+          name: check config
+          command: cat ~/.ssh/config
       - run:
           name: build container
           command: docker build -t nagamatu/loopback .
       - run:
           name: run container
-          command: docker run --env __USERNAME=${__USERNAME} --env __PASSWORD=${__PASSWORD} --privileged -t nagamatu/loopback
+          command: docker run --env CIRCLE_PROJECT_USERNAME=${CIRCLE_PROJECT_USERNAME} --env CI_PROJECT_REPONAME=${CI_PROJECT_REPONAME} --privileged -t nagamatu/loopback
       - run:
           name: Print the Current Time
           command: date
