@@ -1,6 +1,9 @@
 version: 2
 jobs:
   build:
+    branches:
+      only:
+        - master
     machine:
       enabled: true
       image: circleci/classic:201711-01
