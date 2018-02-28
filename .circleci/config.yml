@@ -9,12 +9,20 @@ jobs:
       - run:
           name: check ssh
           command: ls ~/.ssh
+      - add_ssh_keys:
+        fingerprints:
+          - "ac:6e:fe:ca:75:02:94:47:e3:62:47:27:9b:28:7c:a2"
       - run:
-          name: check config
-          command: cat ~/.ssh/config
+          name: Start ssh-agent
+          command: |
+            ssh-agent -s > ~/.ssh_agent_conf
+            source ~/.ssh_agent_conf
+            for _k in $(ls ${HOME}/.ssh/id_*); do
+              ssh-add ${_k} || true
+            done
       - run:
           name: build container
-          command: docker build -t nagamatu/loopback .
+          command: docker build --build-arg ssh_key="$(cat ~/.ssh/id_rsa)" --build-arg -t nagamatu/loopback .
       - run:
           name: run container
           command: docker run --env CIRCLE_PROJECT_USERNAME=${CIRCLE_PROJECT_USERNAME} --env CI_PROJECT_REPONAME=${CI_PROJECT_REPONAME} --privileged -t nagamatu/loopback

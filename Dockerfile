@@ -10,6 +10,5 @@ RUN apt-get install -y git-lfs
 RUN git lfs install
 
 ADD mount.sh /mount.sh
-ADD /home/circleci/.ssh /
 
 ENTRYPOINT [ "sh", "/mount.sh" ]
