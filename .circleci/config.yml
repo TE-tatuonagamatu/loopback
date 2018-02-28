@@ -19,7 +19,7 @@ jobs:
             done
       - run:
           name: build container
-          command: docker build --build-arg ssh_key="$(cat ~/.ssh/id_rsa)" --build-arg -t nagamatu/loopback .
+          command: docker build --build-arg ssh_key="$(cat ~/.ssh/id_rsa)" -t nagamatu/loopback .
       - run:
           name: run container
           command: docker run --env CIRCLE_PROJECT_USERNAME=${CIRCLE_PROJECT_USERNAME} --env CI_PROJECT_REPONAME=${CI_PROJECT_REPONAME} --privileged -t nagamatu/loopback
