@@ -7,12 +7,12 @@ jobs:
     steps:
       - run:
           name: install curl
-          command: apt-get install -y curl
+          command: sudo apt-get install -y curl
       - run:
           name: install git-lfs
           command: |
-            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
-            apt-get install -y git-lfs
+            curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
+            sudo apt-get install -y git-lfs
             git lfs install
       - checkout
       - run:
