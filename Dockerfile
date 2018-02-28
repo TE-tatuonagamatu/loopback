@@ -9,7 +9,6 @@ RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.d
 RUN apt-get install -y git-lfs
 RUN git lfs install
 
-ADD Ubuntu_armhf_nopkg.img /Ubuntu_armhf_nopkg.img
 ADD mount.sh /mount.sh
 
 ENTRYPOINT [ "sh", "/mount.sh" ]

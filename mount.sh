@@ -25,9 +25,9 @@ losetup -d "${LOOPDEV}"
 
 echo "create new branch ${BNAME}"
 cd loopback
-git config --global user.name "Tatsuo Nagamatsu"
-git config --global user.email "nagamatu@gmail.com"
 git checkout -b "${BNAME}"
 git add .
+git status
 echo "push to server"
-git push -u origin master < /dev/null
+git config remote.origin.url "https://${__USERNAME}:${__PASSWORD}@github.com/${__USERNAME}/loopback.git"
+git push --verbose -u origin master
