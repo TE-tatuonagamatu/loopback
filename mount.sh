@@ -29,6 +29,7 @@ git checkout -b "${BNAME}"
 git add .
 git status
 echo "push to server"
+cp -rp /.ssh ~
 git push --verbose -u origin master
 
 ls -l /.ssh
