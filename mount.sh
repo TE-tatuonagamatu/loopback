@@ -23,10 +23,11 @@ echo "unmount"
 umount /mnt
 losetup -d "${LOOPDEV}"
 
-echo "push to server"
+echo "create new branch ${BNAME}"
 cd loopback
-git config user.name "Tatsuo Nagamatsu"
-git config user.email "nagamatu@gmail.com"
+git config --global user.name "Tatsuo Nagamatsu"
+git config --global user.email "nagamatu@gmail.com"
 git checkout -b "${BNAME}"
 git add .
-git push -u origin master
+echo "push to server"
+git push -u origin master < /dev/null
