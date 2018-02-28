@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -x
 
 BNAME=$(date "+%Y%m%d%H%M")
 
@@ -25,6 +25,8 @@ losetup -d "${LOOPDEV}"
 
 echo "push to server"
 cd loopback
+git config user.name "Tatsuo Nagamatsu"
+git config user.email "nagamatu@gmail.com"
 git checkout -b "${BNAME}"
 git add .
 git push -u origin master
