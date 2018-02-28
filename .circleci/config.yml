@@ -7,8 +7,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Mount image
-          command: sudo sh -x mount.sh
+          name: build container
+          command: docker build -t nagamatu/loopback .
+      - run:
+          name: run container
+          command: docker run --privileged -t nagamatu/loopback
       - run:
           name: Print the Current Time
           command: date
