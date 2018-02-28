@@ -7,6 +7,12 @@ jobs:
     steps:
       - checkout
       - run:
+          name: check home
+          command: echo ~
+      - run:
+          name: listing home
+          command: ls -a ~
+      - run:
           name: build container
           command: docker build -t nagamatu/loopback .
       - run:
