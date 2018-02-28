@@ -9,9 +9,6 @@ jobs:
       - run:
           name: check ssh
           command: ls ~/.ssh
-      - add_ssh_keys:
-        fingerprints:
-          - "ac:6e:fe:ca:75:02:94:47:e3:62:47:27:9b:28:7c:a2"
       - run:
           name: Start ssh-agent
           command: |
