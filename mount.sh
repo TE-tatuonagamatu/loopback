@@ -1,5 +1,7 @@
 #!/bin/sh
 
+BNAME=$(date "+%Y%m%d%H%M")
+
 # Install git-lfs
 #curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | sudo bash
 #apt-get install -y git-lfs
@@ -13,9 +15,10 @@ fi
 LOOPDEV=$(losetup -f)
 losetup "${LOOPDEV}" loopback/Ubuntu_armhf_nopkg.img
 mount "${LOOPDEV}" /mnt
-df
-ls -Rl /mnt
+touch /mnt/"${BNAME}"
 umount /mnt
 losetup -d "${LOOPDEV}"
-dmesg | tail
-od -X loopback/Ubuntu_armhf_nopkg.img | head
+
+git checkout -b "${BNAME}"
+git add .
+git push -u origin master
