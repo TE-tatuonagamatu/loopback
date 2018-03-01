@@ -30,7 +30,7 @@ jobs:
             CI_REMOTE_REPOSITORY="git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
             IMGNAME="Ubuntu_armhf_nopkg"
             IMGFILE="${IMGNAME}.img"
-            cat "${IMGNAME}.?" > "${IMGFILE}"
+            cat "${IMGNAME}".? > "${IMGFILE}"
             rm Ubuntu_armhf_nopkg.?
             echo "unpack image ${IMGFILE}"
             ls -l "${IMGFILE}"
