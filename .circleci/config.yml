@@ -35,11 +35,16 @@ jobs:
             echo "unpack image ${IMGFILE}"
             ls -l "${IMGFILE}"
             LODEV=$(sudo losetup -f)
+            echo "Use loopback device: ${LODEV}"
             sudo losetup "${LODEV}" "${IMGFILE}"
+            echo "losetup ${LODEV} ${IMGFILE}"
             sudo mount "${LODEV}" /mnt
+            echo "mount ${LODEV} /mnt"
             touch /mnt/${BRANCH_NAME}"
             sudo umount /mnt
+            echo "umount /mnt"
             sudo losetup -d "${LODEV}"
+            echo "losetup -d ${LODEV}" 
             sh split.sh
             echo "create new branch ${BRANCH_NAME}"
             ls -la
