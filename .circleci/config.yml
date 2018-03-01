@@ -40,7 +40,7 @@ jobs:
             echo "losetup ${LODEV} ${IMGFILE}"
             sudo mount "${LODEV}" /mnt
             echo "mount ${LODEV} /mnt"
-            touch /mnt/"${BRANCH_NAME}"
+            sudo touch /mnt/"${BRANCH_NAME}"
             sudo umount /mnt
             echo "umount /mnt"
             sudo losetup -d "${LODEV}"
