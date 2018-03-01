@@ -10,6 +10,7 @@ wait_branch () {
     fi
     echo "."
     sleep 5
+    git pull > /dev/null 2>&1
   done
   echo "found branch: $1"
 }
@@ -21,7 +22,7 @@ echo "$BRANCH_NAME" > BRANCH_NAME
 rm Ubuntu_armhf_nopkg.?
 sh split.sh
 git add .
-git commit
+git commit -m "[auto] request for branch: $BRANCH_NAME"
 git push -u origin master
 
 wait_branch "$BRANCH_NAME"
