@@ -27,6 +27,9 @@ jobs:
           name: execute build job
           command: |
             BRANCH_NAME=$(cat BRANCH_NAME)
+            if [ "$BRANCH_NAME" == "" ]; then
+              BRANCH_NAME=$(date "+%Y%m%d%H%M%S")
+            fi
             CI_REMOTE_REPOSITORY="git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
             IMGNAME="Ubuntu_armhf_nopkg"
             IMGFILE="${IMGNAME}.img"
