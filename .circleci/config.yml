@@ -34,7 +34,7 @@ jobs:
             IMG="Ubuntu_armhf_nopkg.img"
             cat Ubuntu_armhf_nopkg.? > "${IMG}"
             rm Ubuntu_armhf_nopkg.?
-            LODEV=$(losetup -f)
+            LODEV=$(sudo losetup -f)
             sudo losetup "${LODEV}" "${IMG}"
             sudo mount "${LODEV}" /mnt
             touch /mnt/${BRANCH_NAME}"
