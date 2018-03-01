@@ -19,7 +19,7 @@ BRANCH_NAME=$(date "+%Y%m%d%H%M%S")
 git checkout master
 git pull
 echo "$BRANCH_NAME" > BRANCH_NAME
-rm Ubuntu_armhf_nopkg.???
+rm Ubuntu_armhf_nopkg.??
 sh split.sh
 git add .
 git commit -m "[auto] request for branch: $BRANCH_NAME"
