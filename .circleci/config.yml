@@ -34,7 +34,7 @@ jobs:
             IMGNAME="Ubuntu_armhf_nopkg"
             IMGFILE="${IMGNAME}.img"
             cat "${IMGNAME}".??? > "${IMGFILE}"
-            rm Ubuntu_armhf_nopkg.?
+            rm Ubuntu_armhf_nopkg.???
             ls -l "${IMGFILE}"
             LODEV=$(sudo losetup -f)
             sudo losetup "${LODEV}" "${IMGFILE}"
