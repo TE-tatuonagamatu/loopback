@@ -16,9 +16,6 @@ jobs:
             git lfs install
       - checkout
       - run:
-          name: check ssh
-          command: ls ~/.ssh
-      - run:
           name: Start ssh-agent
           command: |
             ssh-agent -s > ~/.ssh_agent_conf
@@ -31,11 +28,14 @@ jobs:
           command: |
             BRANCH_NAME=$(date "+%Y%m%d%H%M%S")
             CI_REMOTE_REPOSITORY="git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
-            IMG="Ubuntu_armhf_nopkg.img"
-            cat Ubuntu_armhf_nopkg.? > "${IMG}"
+            IMGNAME="Ubuntu_armhf_nopkg"
+            IMGFILE="${IMGNAME}.img"
+            cat "${IMGNAME}.?" > "${IMGFILE}"
             rm Ubuntu_armhf_nopkg.?
+            echo "unpack image ${IMGFILE}"
+            ls -l "${IMGFILE}"
             LODEV=$(sudo losetup -f)
-            sudo losetup "${LODEV}" "${IMG}"
+            sudo losetup "${LODEV}" "${IMGFILE}"
             sudo mount "${LODEV}" /mnt
             touch /mnt/${BRANCH_NAME}"
             sudo umount /mnt
@@ -44,7 +44,6 @@ jobs:
             echo "create new branch ${BRANCH_NAME}"
             ls -la
             git checkout -b "${BRANCH_NAME}"
-            touch "${BRANCH_NAME}"
             git add .
             git status
             echo "push to server"
