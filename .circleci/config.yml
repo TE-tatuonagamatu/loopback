@@ -26,25 +26,19 @@ jobs:
       - run:
           name: execute build job
           command: |
-            BRANCH_NAME=$(date "+%Y%m%d%H%M%S")
+            BRANCH_NAME=$(cat BRANCH_NAME)
             CI_REMOTE_REPOSITORY="git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
             IMGNAME="Ubuntu_armhf_nopkg"
             IMGFILE="${IMGNAME}.img"
             cat "${IMGNAME}".? > "${IMGFILE}"
             rm Ubuntu_armhf_nopkg.?
-            echo "unpack image ${IMGFILE}"
             ls -l "${IMGFILE}"
             LODEV=$(sudo losetup -f)
-            echo "Use loopback device: ${LODEV}"
             sudo losetup "${LODEV}" "${IMGFILE}"
-            echo "losetup ${LODEV} ${IMGFILE}"
             sudo mount "${LODEV}" /mnt
-            echo "mount ${LODEV} /mnt"
             sudo touch /mnt/"${BRANCH_NAME}"
             sudo umount /mnt
-            echo "umount /mnt"
             sudo losetup -d "${LODEV}"
-            echo "losetup -d ${LODEV}" 
             sh split.sh
             echo "create new branch ${BRANCH_NAME}"
             ls -la
