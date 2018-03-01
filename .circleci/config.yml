@@ -31,6 +31,16 @@ jobs:
           command: |
             BRANCH_NAME=$(date "+%Y%m%d%H%M%S")
             CI_REMOTE_REPOSITORY="git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git"
+            IMG="Ubuntu_armhf_nopkg.img"
+            cat Ubuntu_armhf_nopkg.? > "${IMG}"
+            rm Ubuntu_armhf_nopkg.?
+            LODEV=$(losetup -f)
+            sudo losetup "${LODEV}" "${IMG}"
+            sudo mount "${LODEV}" /mnt
+            touch /mnt/${BRANCH_NAME}"
+            sudo umount /mnt
+            sudo losetup -d "${LODEV}"
+            sh split.sh
             echo "create new branch ${BRANCH_NAME}"
             ls -la
             git checkout -b "${BRANCH_NAME}"
